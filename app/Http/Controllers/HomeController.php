@@ -4,18 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Mail\ActiveMail;
 use App\Mail\ForgotPasswordMail;
+use App\Models\admin\Colors;
+use App\Models\admin\Comments;
+use App\Models\admin\Product_variant;
+use App\Models\admin\Products;
+use App\Models\admin\Sizes;
 use App\Models\admin\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index() {
-        Auth::guard('web')->logout();
-        return view('client.home');
+        $top8 = DB::table('products')->select()->orderBy('views', 'desc')->take(8)->get();
+        $new8 = DB::table('products')->select()->orderBy('created_at', 'desc')->take(8)->get();
+
+        return view('client.home', compact('top8', 'new8'));
+    }
+
+    public function pages() {
+        return view('client.pages');
+    }
+
+    public function shop() {
+        $products = DB::table('products')->paginate(8);
+        // dd($products);
+
+        return view('client.shop', compact('products'));
+    }
+
+    public function blog() {
+        return view('client.blog');
     }
 
     public function register() {
@@ -124,5 +147,14 @@ class HomeController extends Controller
         }
 
         return redirect()->back()->with('no', 'Không tìm thấy email trong hệ thống');
+    }
+
+    public function detail(string $id) {
+        $colors = Colors::all();
+        $sizes = Sizes::all();
+        $product = Products::find($id);
+        $comments = Comments::where('product_id', $id)->get();
+        $variants = Product_variant::where('product_id', $id)->where('quantity', '>', 0)->get();
+        return view('client.product-detail', compact('product', 'variants', 'comments', 'colors', 'sizes'));
     }
 }

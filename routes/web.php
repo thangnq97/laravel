@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BillsController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ColorsController;
 use App\Http\Controllers\CommentsController;
@@ -26,6 +27,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/pages', [HomeController::class, 'pages'])->name('pages');
+Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
+Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
+Route::get('/detail/{product}', [HomeController::class, 'detail'])->name('product.detail');
+
 Route::get('/register', [HomeController::class, 'register'])->name('register');
 Route::post('/register', [HomeController::class, 'postRegister']);
 Route::get('/login', [HomeController::class, 'login'])->name('login');
@@ -34,8 +40,14 @@ Route::get('/logout', [HomeController::class, 'logOut'])->name('logout');
 Route::get('/active/{user}/{token}', [HomeController::class, 'active'])->name('user.active');
 Route::get('/forgotPassword', [HomeController::class, 'forgotPassword'])->name('forgotPassword');
 Route::post('/forgotPassword', [HomeController::class, 'postForgotPassword']);
-Route::get('re-password/{user}/{token}', [HomeController::class, 'rePassword'])->name('user.repassword');
-Route::post('re-password', [HomeController::class, 'postRePassword'])->name('postRePassword');
+Route::get('/re-password/{user}/{token}', [HomeController::class, 'rePassword'])->name('user.repassword');
+Route::post('/re-password', [HomeController::class, 'postRePassword'])->name('postRePassword');
+
+Route::post('/add-cart', [CartController::class, 'addCart'])->name('cart.store');
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/add-voucher', [CartController::class, 'addVoucher'])->name('voucher.add');
+Route::get('/delete-cart/{cart}', [CartController::class, 'deleteCart'])->name('cart.delete');
+Route::get('/cart-confirm', [CartController::class, 'cartConfirm'])->name('cart.confirm');
 
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'saveLogin']);

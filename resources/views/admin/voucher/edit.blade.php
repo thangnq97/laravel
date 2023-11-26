@@ -11,13 +11,6 @@
         @csrf
         @method('PUT')
         <div class="form-group">
-            <label for="" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" value="{{ $voucher->name }}">
-            @error('name')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-        <div class="form-group">
             <label for="" class="form-label">Discount</label>
             <input type="number" class="form-control" name="discount" value="{{ $voucher->discount }}">
             @error('discount')

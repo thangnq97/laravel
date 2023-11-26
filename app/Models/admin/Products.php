@@ -9,7 +9,7 @@ class Products extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    protected $table = 'products';
 
     protected $fillable = ['name', 'detail', 'image', 'cate_id'];
 
@@ -20,4 +20,5 @@ class Products extends Model
     public function comment() {
         return $this->hasMany(Comments::class);
     }
+
 }

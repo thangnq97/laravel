@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\admin\Vouchers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class VouchersController extends Controller
 {
@@ -30,11 +31,12 @@ class VouchersController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
             'discount' => 'required|numeric',
             'expiry' => 'required'
         ]);
 
+        $name = Str::random(5);
+        $request->merge(['name' => $name]);
         Vouchers::create($request->all());
 
         return redirect()->back()->with('yes', 'Thêm mới thành công');
@@ -65,7 +67,6 @@ class VouchersController extends Controller
         $voucher = Vouchers::find($id);
 
         $request->validate([
-            'name' => 'required',
             'discount' => 'required|numeric',
             'expiry' => 'required'
         ]);

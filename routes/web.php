@@ -31,9 +31,11 @@ Route::get('/pages', [HomeController::class, 'pages'])->name('pages');
 Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/detail/{product}', [HomeController::class, 'detail'])->name('product.detail');
+Route::post('/post-comment', [HomeController::class, 'postComment'])->name('post.comment');
 
 Route::get('/register', [HomeController::class, 'register'])->name('register');
 Route::post('/register', [HomeController::class, 'postRegister']);
+Route::get('/logout', [HomeController::class, 'signOut'])->name('logout');
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::post('/login', [HomeController::class, 'postLogin']);
 Route::get('/logout', [HomeController::class, 'logOut'])->name('logout');
@@ -47,11 +49,18 @@ Route::post('/add-cart', [CartController::class, 'addCart'])->name('cart.store')
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/add-voucher', [CartController::class, 'addVoucher'])->name('voucher.add');
 Route::get('/delete-cart/{cart}', [CartController::class, 'deleteCart'])->name('cart.delete');
-Route::get('/cart-confirm', [CartController::class, 'cartConfirm'])->name('cart.confirm');
+
 
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'saveLogin']);
 Route::get('/admin/sign-out', [AdminController::class, 'signOut'])->name('admin.signout');
+
+Route::middleware('client')->group(function() {
+    Route::get('/cart-confirm', [CartController::class, 'cartConfirm'])->name('cart.confirm');
+    Route::post('/cart-confirm', [CartController::class, 'postConfirm']);
+    Route::get('/history', [HomeController::class, 'history'])->name('history');
+    Route::get('/history-detail', [HomeController::class, 'historyDetail'])->name('history.detail');
+});
 
 Route::prefix('admin')->middleware('admin')->group(function() {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');

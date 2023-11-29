@@ -77,7 +77,7 @@
             @endforeach
         </div>
         @if (Auth::check())
-            <form action="" class=" mt-5 mb-6 ml-5 flex gap-4" method="POST">
+            <form action="{{ route('post.comment') }}" class=" mt-5 mb-6 ml-5 flex gap-4" method="POST">
                 @csrf
                 <input type="hidden" value="{{ $product->id }}" name="product_id">
                 <textarea class="outline-none focus:outline-blue-400 rounded" name="content" id="" cols="40"

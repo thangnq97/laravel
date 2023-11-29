@@ -12,7 +12,7 @@
             <tr>
                 <th>Fullname</th>
                 <th>Phone</th>
-                <th>Address</th>
+                <th style="width: 25%">Address</th>
                 <th>Total Price</th>
                 <th>Status</th>
                 <th>Voucher</th>

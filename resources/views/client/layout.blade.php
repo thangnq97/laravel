@@ -22,41 +22,42 @@
             <div class="flex gap-10">
                 <nav class="flex gap-5">
                     <ul class="flex gap-8">
-                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="./">Home</a></li>
-                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="./pages">Pages</a></li>
-                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="./shop?page=1">Shop</a></li>
-                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="./blog">Blog</a></li>
-                        <?php if(isset($_SESSION['user'])):?>
-                            <li><a class="text-[18px] font-semibold hover:text-red-500" href="./history">History</a></li>
-                        <?php endif?>
+                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="{{ route('home') }}">Home</a>
+                        </li>
+                        <li><a class="text-[18px] font-semibold hover:text-red-500"
+                                href="{{ route('pages') }}">Pages</a></li>
+                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="{{ route('shop') }}">Shop</a>
+                        </li>
+                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="{{ route('blog') }}">Blog</a>
+                        </li>
+                        @if (Auth::check())
+                            <li><a class="text-[18px] font-semibold hover:text-red-500" href="./history">History</a>
+                            </li>
+                        @endif
                     </ul>
-                    <a href="./cart" class="cursor-pointer">
+                    <a href="{{ route('cart') }}" class="cursor-pointer">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a>
                 </nav>
                 <ul class="flex gap-4">
-                    <?php if(!isset($_SESSION['user'])):?>
-                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="./sign-in">Sign in</a></li>
-                    <?php endif?>
-                    <?php if(isset($_SESSION['user'])):?>
-                        <?php if(($_SESSION['user']['role'] === 'admin')):?>
-                            <li><a class="text-[18px] font-semibold hover:text-red-500" href="./admin">Admin</a></li>
-                        <?php endif?>
-                    <?php endif?>
-                    <?php if(isset($_SESSION['user'])):?>
-                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="./sign-out">Sign out</a></li>
-                    <?php endif?>
+                    @if (Auth::check())
+                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="{{ route('logout') }}">Sign
+                                out</a></li>
+                    @else
+                        <li><a class="text-[18px] font-semibold hover:text-red-500" href="{{ route('login') }}">Sign
+                                in</a></li>
+                    @endif
                 </ul>
             </div>
         </header>
 
         @yield('content')
-        
+
         <!-- footer -->
         <footer class="mt-[64px] px-8 py-[64px] bg-[#335154] grid grid-cols-4 gap-6">
             <div>
                 <a href="#">
-                    <img src="./img/logo.png" alt="">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="">
                 </a>
                 <div class="flex mt-3 gap-4 ml-5">
                     <i class="text-red-500 fa-brands fa-facebook"></i>
@@ -85,9 +86,9 @@
                     <p class="text-[#97adaf]">Trịnh Văn Bô - Hà Nội.</p>
                 </div>
             </div>
-    </footer>
-</div>
-@yield('script')
+        </footer>
+    </div>
+    @yield('script')
 </body>
 
 </html>

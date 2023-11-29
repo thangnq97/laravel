@@ -6,46 +6,58 @@
     </div>
 
     <ul class="nav">
-        <li class="active">
-            <a href="dashboard.html">
+        <li class="">
+            <a href="{{ route('category.index') }}">
                 <i class="pe-7s-graph"></i>
-                <p>Dashboard</p>
+                <p>Category</p>
             </a>
         </li>
         <li>
-            <a href="user.html">
+            <a href="{{ route('user.index') }}">
                 <i class="pe-7s-user"></i>
-                <p>User Profile</p>
+                <p>User</p>
             </a>
         </li>
         <li>
-            <a href="table.html">
+            <a href="{{ route('product.index') }}">
                 <i class="pe-7s-note2"></i>
-                <p>Table List</p>
+                <p>Product</p>
             </a>
         </li>
         <li>
-            <a href="typography.html">
+            <a href="{{ route('comment.index') }}">
                 <i class="pe-7s-news-paper"></i>
-                <p>Typography</p>
+                <p>Comment</p>
             </a>
         </li>
         <li>
-            <a href="icons.html">
+            <a href="{{ route('color.index') }}">
                 <i class="pe-7s-science"></i>
-                <p>Icons</p>
+                <p>Color</p>
             </a>
         </li>
         <li>
-            <a href="maps.html">
+            <a href="{{ route('size.index') }}">
                 <i class="pe-7s-map-marker"></i>
-                <p>Maps</p>
+                <p>Size</p>
             </a>
         </li>
         <li>
-            <a href="notifications.html">
+            <a href="{{ route('voucher.index') }}">
                 <i class="pe-7s-bell"></i>
-                <p>Notifications</p>
+                <p>Voucher</p>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('variant.index') }}">
+                <i class="pe-7s-news-paper"></i>
+                <p>Variant</p>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('bill.index') }}">
+                <i class="pe-7s-note2"></i>
+                <p>Bill</p>
             </a>
         </li>
     </ul>

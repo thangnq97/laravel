@@ -54,6 +54,7 @@
         <section>
             <form class="form w-[80%]" action="" method="POST">
                 @csrf
+                <input type="hidden" value="{{ session()->get('total_price') }}" name="total_price">
                 <div class="mb-4">
                     <input class="user_name border pl-3 py-3 outline-none w-full focus:border-blue-400" type="text"
                         placeholder="Your name" name="fullname">

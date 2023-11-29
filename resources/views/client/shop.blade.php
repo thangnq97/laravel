@@ -12,16 +12,16 @@
         <div class="grid grid-cols-4 gap-8 px-8 my-8">
             @foreach ($products as $item)
                 <div>
-                    <a href="">
+                    <a href="{{ route('product.detail', $item->id) }}">
                         <img class="object-cover" src="{{ asset('assets/img/'.$item->image) }}" alt="">
                     </a>
                     <div class="flex justify-center">
-                        <a href="">
+                        <a href="{{ route('product.detail', $item->id) }}">
                             <h3 class="text-[20px] font-[800] text-[#335154] mt-3 mb-2">{{ $item->name }}</h3>
                         </a>
                     </div>
                     <div class="flex justify-center">
-                        <a href="">
+                        <a href="{{ route('product.detail', $item->id) }}">
                             <button class="bg-[#df453e] text-white font-normal text-[13px] px-[22px] py-[10px] hover:bg-[#335154] hover:text-[#df453e] rounded">Detail</button>
                         </a>
                     </div>

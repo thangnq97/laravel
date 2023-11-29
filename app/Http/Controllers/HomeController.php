@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ActiveMail;
 use App\Mail\ForgotPasswordMail;
+use App\Models\admin\Bills;
 use App\Models\admin\Colors;
 use App\Models\admin\Comments;
 use App\Models\admin\Product_variant;
@@ -156,5 +157,32 @@ class HomeController extends Controller
         $comments = Comments::where('product_id', $id)->get();
         $variants = Product_variant::where('product_id', $id)->where('quantity', '>', 0)->get();
         return view('client.product-detail', compact('product', 'variants', 'comments', 'colors', 'sizes'));
+    }
+
+    public function signOut() {
+        Auth::logout();
+        return redirect()->route('sign-out');
+    }
+
+    public function postComment(Request $request) {
+        $request->validate([
+            'content' => 'required',
+        ]);
+
+        Comments::create([
+            'content' => $request->content,
+            'product_id' => $request->product_id,
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function history() {
+        $user = Auth::user();
+        
+        $bills = Bills::where('user_id', $user->id)->select()->get();
+
+        return view('client.history', compact('bills'));
     }
 }
